@@ -8,6 +8,7 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.shot_timer = 0
+        self.lives = PLAYER_STARTING_LIVES
 
     # creates triangle points
     def triangle(self):
@@ -33,6 +34,14 @@ class Player(CircleShape):
     def drift(self, dt):
         self.position += (self.velocity * dt)
 
+    # Collision behavior (overrides __super__ as to create a triangular hitbox)
+    def is_colliding(self, object):
+        bool_touching_edge = list(map(lambda x: True if (x.distance_to(object.position) - object.radius) <= 0 else False, self.triangle()))
+        if True in bool_touching_edge:
+            return True
+        else:
+            return False
+
     # updates game sprite rotation
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -51,6 +60,7 @@ class Player(CircleShape):
         if keys[pygame.K_SPACE]:
             self.shoot()
 
+    # handles shooting behaivior
     def shoot(self):
         if self.shot_timer > 0:
             pass
@@ -59,7 +69,7 @@ class Player(CircleShape):
             shot.velocity = (pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED)
             self.shot_timer = PLAYER_SHOOT_COOLDOWN
 
-    #checks to see if player is offscreen and wraps the player to the other side of the screen
+    #checks to see if player is offscreen and wraps the player to the other side of the screen (while this functions similarly to is_offscreen I didnt want to duplicate the logic that checks if a sprite is offscreen)
     def wrap_around(self):
         if self.position.x + self.radius < 0:
             self.position.x = SCREEN_WIDTH + self.radius
@@ -71,7 +81,6 @@ class Player(CircleShape):
             self.position.y = 0 - self.radius
         return
     
-
     # override of draw method
     def draw(self, screen):
         pygame.draw.polygon(screen, "white", self.triangle(), width=2)
