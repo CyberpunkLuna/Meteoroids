@@ -38,10 +38,15 @@ def main():
         updatable.update(dt)
         for asteroid in asteroids:
             if player.is_colliding(asteroid):
-                print("Game over!")
-                score.update_time(pygame.time.get_ticks())
-                score.print_score()
-                return
+                if player.death():
+                    print("Game over!")
+                    score.update_time(pygame.time.get_ticks())
+                    score.print_score()
+                    return
+                else:
+                    for asteroid in asteroids:
+                        asteroid.kill()
+                    player.respawn()
 
         for asteroid in asteroids:
             for shot in shots:

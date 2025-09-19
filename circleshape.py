@@ -13,16 +13,27 @@ class CircleShape(pygame.sprite.Sprite):
         self.velocity = pygame.Vector2(0, 0)
         self.radius = radius
 
+    # Collision behavior (subclasses may override)
     def is_colliding(self, object):
         if (self.position.distance_to(object.position) <= (self.radius + object.radius)):
             return True
         else:
             return False
         
+    # returns True if the entire circular sprite is offscreen (subclasses may override)
     def is_offscreen(self):
-        pass
+        if self.position.x + self.radius < 0:
+            return True
+        if self.position.x - self.radius > SCREEN_WIDTH:
+            return True
+        if self.position.y + self.radius < 0:
+            return True
+        if self.position.y - self.radius > SCREEN_HEIGHT:
+            return True
+        return False
 
     def wrap_around(self):
+        # sub-classes must override
         pass
 
     def draw(self, screen):

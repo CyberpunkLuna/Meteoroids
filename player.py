@@ -41,6 +41,18 @@ class Player(CircleShape):
             return True
         else:
             return False
+        
+    #behavior to respawn after dying if more lives are available
+    def death(self):
+        if self.lives > 1:
+            self.lives -= 1
+            return False
+        else:
+            return True
+    
+    def respawn(self):
+        self.velocity = pygame.Vector2(0, 0)
+        self.position = pygame.Vector2((SCREEN_WIDTH/2), (SCREEN_HEIGHT/2))
 
     # updates game sprite rotation
     def update(self, dt):

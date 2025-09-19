@@ -26,14 +26,3 @@ class Asteroid(CircleShape):
             asteroid2 = Asteroid(self.position.x, self.position.y, new_radius)
             asteroid1.velocity = new_vector_1 * 1.2
             asteroid2.velocity = new_vector_2 * 1.2
-
-    def is_offscreen(self):
-        if self.position.x + self.radius < 0:
-            return True
-        if self.position.x - self.radius > SCREEN_WIDTH:
-            return True
-        if self.position.y + self.radius < 0:
-            return True
-        if self.position.y - self.radius > SCREEN_HEIGHT:
-            return True
-        return False
