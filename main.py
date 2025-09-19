@@ -53,7 +53,6 @@ def main():
         for sprite in drawable:
             sprite.draw(screen)
         pygame.display.flip()
-        score.update_time(dt) #DOES NOT ACCURATLY TRACK SECONDS WITH THIS METHOD, NEED TO FIX
         dt = clock.tick(60)/1000
 
 if __name__ == "__main__":

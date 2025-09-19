@@ -37,6 +37,7 @@ class Player(CircleShape):
     def update(self, dt):
         keys = pygame.key.get_pressed()
         self.shot_timer -= dt
+        self.wrap_around()
         self.drift(dt)
 
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
@@ -57,6 +58,19 @@ class Player(CircleShape):
             shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
             shot.velocity = (pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED)
             self.shot_timer = PLAYER_SHOOT_COOLDOWN
+
+    #checks to see if player is offscreen and wraps the player to the other side of the screen
+    def wrap_around(self):
+        if self.position.x + self.radius < 0:
+            self.position.x = SCREEN_WIDTH + self.radius
+        if self.position.x - self.radius > SCREEN_WIDTH:
+            self.position.x = 0 - self.radius
+        if self.position.y + self.radius < 0:
+            self.position.y = SCREEN_HEIGHT + self.radius
+        if self.position.y - self.radius > SCREEN_HEIGHT:
+            self.position.y = 0 - self.radius
+        return
+    
 
     # override of draw method
     def draw(self, screen):
