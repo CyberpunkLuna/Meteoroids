@@ -1,7 +1,20 @@
 This is blatant clone of asteroids!
+
 Starting out as a boot.dev project I have and will be extending this out till I feel satisfied with the end product.
 
-Possible improvements:
+Written in Python using PyGame.
+
+Learning Outcomes: Learning a new framework (PyGame), as well as working with vectors and vector math.
+
+Extended features added:
+
+    Scoring system
+    Player velocity
+    Make the player wrap around the screen instead of disappearing
+    Make the ship have a triangular hit box instead of a circular one
+    Implement multiple lives and respawning
+
+Possible future improvements:
 
     Bootdev suggested improvements:
         
@@ -22,10 +35,3 @@ Possible improvements:
         a main menu
         a death screen in-between respawns
 
-Extended feature already added:
-
-    Scoring system
-    Player velocity
-    Make the player wrap around the screen instead of disappearing
-    Make the ship have a triangular hit box instead of a circular one
-    Implement multiple lives and respawning
